@@ -2,7 +2,21 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ## Getting Started
 
-First, run the development server:
+### With Docker method
+
+You can run it using Docker method:
+
+```bash
+docker build -t task-management-portal-image .
+docker run -d -p 4000:4000 --name task-management-portal task-management-portal-image
+```
+
+Open [http://localhost:4000](http://localhost:4000) with your browser to see the result.
+You can use this API <a href="https://github.com/AldroidOng/checkbox-api-gateway">here</a> as a complementary to this project.
+
+### Just locally in your own machine method
+
+You can run the development server locally as below and pair up with your own API:
 
 ```bash
 npm run dev
