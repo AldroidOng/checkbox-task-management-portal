@@ -12,9 +12,10 @@ import {
 import TaskForm from "./task-form";
 
 interface TaskModalProps {
+  modalVisibilityHandler: (status: boolean) => void;
+  createTaskModalTrigger: () => void;
   isOpen: boolean;
-  onOpen: () => void;
-  onClose: () => void;
+  onCloseModalHandler: () => void;
   refetch: () => void;
   initialValues: {
     taskId: string;
@@ -25,16 +26,20 @@ interface TaskModalProps {
 }
 
 export default function TaskModal({
+  modalVisibilityHandler,
+  createTaskModalTrigger,
   isOpen,
-  onOpen,
-  onClose,
+  onCloseModalHandler,
   refetch,
   initialValues,
 }: TaskModalProps) {
   return (
-    <Dialog open={isOpen}>
+    <Dialog
+      open={isOpen}
+      onOpenChange={(status) => modalVisibilityHandler(status)}
+    >
       <DialogTrigger asChild>
-        <Button variant="outline" onClick={() => onOpen()}>
+        <Button variant="outline" onClick={() => createTaskModalTrigger()}>
           Create Task
         </Button>
       </DialogTrigger>
@@ -43,10 +48,10 @@ export default function TaskModal({
           <DialogTitle>
             {initialValues.taskId ? "Edit Task" : "Create Task"}
           </DialogTitle>
-          <DialogDescription>Click save when you're done</DialogDescription>
+          <DialogDescription>Click save when done</DialogDescription>
         </DialogHeader>
         <TaskForm
-          onClose={onClose}
+          onClose={onCloseModalHandler}
           refetch={refetch}
           initialValues={initialValues}
         />

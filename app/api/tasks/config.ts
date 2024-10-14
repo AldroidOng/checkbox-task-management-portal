@@ -1,7 +1,7 @@
 import { baseConfig } from "@/config";
 
-export const userApiConfig = {
+export const apiConfig = {
   ...baseConfig,
-  baseUrl: process.env.USER_API_BASE_URL || baseConfig.baseUrl,
+  apiBaseUrl: process.env.NEXT_PUBLIC_API_URL || baseConfig.apiBaseUrl,
   timeout: 3000,
 };

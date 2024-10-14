@@ -18,3 +18,5 @@ export interface updateTaskPayload {
 export interface submitUpdateTask extends Omit<createTaskPayload, "email"> {
   taskId?: string;
 }
+
+export type taskActions = "CREATE" | "EDIT" | undefined;

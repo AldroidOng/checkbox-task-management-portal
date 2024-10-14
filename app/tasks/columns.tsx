@@ -3,15 +3,18 @@
 import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import moment from "moment-timezone";
 
 export type Task = {
   taskId: string;
   dueDate: string;
-  status: "Due soon" | "Not urgent" | "Overdue";
+  status: "Due soon" | "Not urgent" | "Overdue" | "";
   taskName: string;
   taskDescription: string;
   createdAt: string;
 };
+
+const DEFAULT_TZ = "Asia/Kuala_Lumpur";
 
 export const createColumns = (
   onEdit: (task: Task) => void
@@ -45,6 +48,12 @@ export const createColumns = (
         </Button>
       );
     },
+    cell: ({ row }) => {
+      const formatted = moment(row.getValue("dueDate"))
+        .tz(DEFAULT_TZ)
+        .format("D MMM YYYY");
+      return <div className="text-center font-medium">{formatted}</div>;
+    },
   },
   {
     accessorKey: "createdAt",
@@ -59,6 +68,12 @@ export const createColumns = (
         </Button>
       );
     },
+    cell: ({ row }) => {
+      const formatted = moment(row.getValue("createdAt"))
+        .tz(DEFAULT_TZ)
+        .format("D MMM YYYY");
+      return <div className="text-center font-medium">{formatted}</div>;
+    },
   },
   {
     id: "actions",
@@ -67,7 +82,7 @@ export const createColumns = (
 
       return (
         <Button variant="link" onClick={() => onEdit(task)}>
-          Link
+          Edit
         </Button>
       );
     },
